@@ -4,7 +4,7 @@ import ReactFlow, {
     Background,
     applyNodeChanges,
     applyEdgeChanges,
-    addEdge,
+    addEdge, useReactFlow, ReactFlowProvider,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import TextUpdaterNode from "../components/Node";
@@ -27,17 +27,42 @@ const initialNodes = [
 ];
 
 const initialEdges = [];
-
+let nodeId = 0;
 function Flow() {
+    const reactFlowInstance = useReactFlow();
+    const onClick = useCallback(() => {
+
+        const id = `${++nodeId}`;
+        const newNode = {
+            id,
+            position: {
+                x: Math.random() * 500,
+                y: Math.random() * 500,
+            },
+            data: {
+                label: `Node ${id}`,
+            },
+        };
+        reactFlowInstance.addNodes(newNode);
+    }, [reactFlowInstance]);
+
     const [nodes, setNodes] = useState(initialNodes);
     const [edges, setEdges] = useState(initialEdges);
 
     const onNodesChange = useCallback(
-        (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+        (changes) => setNodes((nds) => {
+            // console.log("12121",nds)
+            applyNodeChanges(changes, nds)
+        }),
         []
     );
     const onEdgesChange = useCallback(
-        (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+        (changes) => setEdges(
+            (eds) => {
+                // console.log("1212313",eds)
+                applyEdgeChanges(changes, eds)
+            }
+        ),
         []
     );
 
@@ -56,8 +81,18 @@ function Flow() {
                 <Background />
                 <Controls />
             </ReactFlow>
+            <button onClick={onClick} className="btn-add">
+                add node
+            </button>
         </div>
+
     );
 }
 
-export default Flow;
+export default () => {
+    return (
+        <ReactFlowProvider>
+                <Flow/>
+        </ReactFlowProvider>
+    );
+}

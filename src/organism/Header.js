@@ -1,7 +1,7 @@
 import React from "react";
-import Header from 'antd';
-
-const Header = () => {
+import {Layout} from "antd";
+const  {Header} = Layout;
+const HeaderPage = () => {
     return (
         <>
             <Header style={{background : "white"}}>
@@ -11,4 +11,4 @@ const Header = () => {
     );
 }
 
-export default Header;
+export default HeaderPage;
