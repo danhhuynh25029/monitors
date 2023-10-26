@@ -1,19 +1,24 @@
 import {Layout} from "antd";
-
-const {Header, Content} = Layout;
+import List from "../molecule/List";
+import React from "react";
+import Flow from "../organism/Flow";
+import Header from "../organism/Header";
+const {Content} = Layout;
 
 const MainLayout = () => {
     return (
-        <Layout>
-            <Header>
-                <p>Header</p>
-            </Header>
+        <Layout style={{height : "100%"}}>
+            <Header/>
             <Layout>
                 <Content>
-                    <p>Content</p>
+                    <List/>
+                </Content>
+                <Content style={{height:"100%"}}>
+                    <Flow/>
                 </Content>
             </Layout>
         </Layout>
-
     )
 }
+
+export default MainLayout;

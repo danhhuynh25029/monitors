@@ -1,11 +1,12 @@
 import './App.css';
-import ButtonCustom from "./components/Button";
+import MainLayout from "./template/Main";
 
 function App() {
   return (
-    <div className="App">
-      <ButtonCustom Name="Danh"/>
+    <div className="App" style = {{height : '100%'}}>
+        <MainLayout/>
     </div>
+
   );
 }
 
